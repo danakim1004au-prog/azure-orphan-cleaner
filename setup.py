@@ -47,7 +47,7 @@ setup(
     long_description=LONG_DESCRIPTION,
     long_description_content_type="text/markdown",
     author="Dana Kim",
-    author_email="dana.kim@example.com",
+    author_email="danakim1004.au@gmail.com",
     url="https://github.com/danakim1004au-prog/azure-orphan-cleaner",
     license="MIT",
     classifiers=CLASSIFIERS,
