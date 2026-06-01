@@ -1,6 +1,6 @@
 # azure-orphan-cleaner
 
-[![CI](https://github.com/danakim/azure-orphan-cleaner/actions/workflows/ci.yml/badge.svg)](https://github.com/danakim/azure-orphan-cleaner/actions/workflows/ci.yml)
+[![CI](https://github.com/danakim1004au-prog/azure-orphan-cleaner/actions/workflows/ci.yml/badge.svg)](https://github.com/danakim1004au-prog/azure-orphan-cleaner/actions/workflows/ci.yml)
 [![PyPI version](https://img.shields.io/pypi/v/azure-orphan-cleaner.svg)](https://pypi.org/project/azure-orphan-cleaner/)
 [![Python versions](https://img.shields.io/pypi/pyversions/azure-orphan-cleaner.svg)](https://pypi.org/project/azure-orphan-cleaner/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)

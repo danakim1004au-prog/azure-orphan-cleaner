@@ -22,5 +22,5 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - GitHub Actions CI (flake8 + pytest matrix on Python 3.9 / 3.11 with coverage).
 - GitHub Actions release pipeline that publishes to PyPI on `v*` tags.
 
-[Unreleased]: https://github.com/danakim/azure-orphan-cleaner/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/danakim/azure-orphan-cleaner/releases/tag/v0.1.0
+[Unreleased]: https://github.com/danakim1004au-prog/azure-orphan-cleaner/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/danakim1004au-prog/azure-orphan-cleaner/releases/tag/v0.1.0

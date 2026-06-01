@@ -85,4 +85,4 @@ Please include:
 - **Logs**: re-run with `--debug` and paste the relevant excerpt.
 
 Open issues at:
-<https://github.com/danakim/azure-orphan-cleaner/issues>
+<https://github.com/danakim1004au-prog/azure-orphan-cleaner/issues>
