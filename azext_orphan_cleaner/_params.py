@@ -40,13 +40,6 @@ def load_arguments(self, _):
             arg_type=get_three_state_flag(),
             help="Include an estimated monthly cost (USD) for each resource.",
         )
-        c.argument(
-            "output_format",
-            options_list=["--output", "-o"],
-            arg_type=get_enum_type(["table", "json", "tsv"]),
-            default="table",
-            help="Output format.",
-        )
 
     with self.argument_context("orphan clean") as c:
         c.argument(

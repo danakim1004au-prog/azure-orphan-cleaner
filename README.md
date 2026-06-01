@@ -65,7 +65,6 @@ az orphan clean --type all --dry-run false --yes
 | `--subscription-id` | active  | Subscription to scan.                                |
 | `--type`            | `all`   | `disk` / `nic` / `publicip` / `appserviceplan` / `all` |
 | `--estimate-cost`   | off     | Add an `estimatedMonthlyCost` field to each row.     |
-| `--output`, `-o`    | `table` | `table` / `json` / `tsv`.                            |
 
 ### `az orphan clean`
 

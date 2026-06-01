@@ -156,7 +156,6 @@ def scan_orphans(
     subscription_id: Optional[str] = None,
     resource_type: str = "all",
     estimate_cost: bool = False,
-    output_format: str = "table",
 ) -> List[Dict[str, Any]]:
     """Detect orphaned resources via Azure Resource Graph.
 
@@ -170,9 +169,6 @@ def scan_orphans(
             ``appserviceplan`` or ``all``.
         estimate_cost: When ``True`` each row is annotated with an
             ``estimatedMonthlyCost`` field (USD).
-        output_format: Presentation hint forwarded to the CLI output system
-            (``table`` / ``json`` / ``tsv``). The returned data is identical
-            regardless of this value.
 
     Returns:
         A list of dictionaries, one per orphaned resource, each containing at

@@ -23,7 +23,7 @@ helps["orphan scan"] = """
           text: az orphan scan
         - name: Scan only for unattached disks and show estimated monthly cost.
           text: az orphan scan --type disk --estimate-cost
-        - name: Scan a single resource group and emit JSON.
+        - name: Scan a single resource group and output as JSON using the built-in --output flag.
           text: az orphan scan -g my-rg --type all --output json
 """
 
