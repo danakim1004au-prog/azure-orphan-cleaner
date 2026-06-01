@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "-ra"
+markers = [
+    "integration: tests that require a live Azure subscription",
+]
+
+[tool.coverage.run]
+source = ["azext_orphan_cleaner"]
+omit = ["tests/*"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+
+[tool.flake8]
+max-line-length = 90
+exclude = [".git", "__pycache__", "build", "dist", ".venv"]
+# Azure CLI extension boilerplate occasionally needs unused-import for help.
+extend-ignore = ["E203", "W503"]
