@@ -11,7 +11,7 @@ markers = [
 ]
 
 [tool.coverage.run]
-source = ["azext_orphan_cleaner"]
+source = ["azext_resource_sweeper"]
 omit = ["tests/*"]
 
 [tool.coverage.report]

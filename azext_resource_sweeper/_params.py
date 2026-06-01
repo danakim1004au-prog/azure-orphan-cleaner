@@ -2,7 +2,7 @@
 # Copyright (c) Dana Kim. All rights reserved.
 # Licensed under the MIT License.
 # --------------------------------------------------------------------------
-"""Argument definitions for the ``az orphan`` command group."""
+"""Argument definitions for the ``az sweeper`` command group."""
 
 from azure.cli.core.commands.parameters import (
     get_enum_type,
@@ -13,9 +13,9 @@ RESOURCE_TYPES = ["disk", "nic", "publicip", "appserviceplan", "all"]
 
 
 def load_arguments(self, _):
-    """Declare arguments for ``orphan scan`` and ``orphan clean``."""
+    """Declare arguments for ``sweeper scan`` and ``sweeper clean``."""
 
-    with self.argument_context("orphan scan") as c:
+    with self.argument_context("sweeper scan") as c:
         c.argument(
             "resource_group",
             options_list=["--resource-group", "-g"],
@@ -32,7 +32,7 @@ def load_arguments(self, _):
             options_list=["--type"],
             arg_type=get_enum_type(RESOURCE_TYPES),
             default="all",
-            help="Type of orphaned resource to detect.",
+            help="Type of stale or unused resource to detect.",
         )
         c.argument(
             "estimate_cost",
@@ -41,7 +41,7 @@ def load_arguments(self, _):
             help="Include an estimated monthly cost (USD) for each resource.",
         )
 
-    with self.argument_context("orphan clean") as c:
+    with self.argument_context("sweeper clean") as c:
         c.argument(
             "resource_group",
             options_list=["--resource-group", "-g"],
@@ -57,7 +57,7 @@ def load_arguments(self, _):
             options_list=["--type"],
             arg_type=get_enum_type(RESOURCE_TYPES),
             default="all",
-            help="Type of orphaned resource to delete.",
+            help="Type of stale or unused resource to delete.",
         )
         c.argument(
             "dry_run",

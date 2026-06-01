@@ -29,6 +29,9 @@ htmlcov/
 # Azure CLI extension build output
 *.whl
 
+# Azurite (Azure Storage emulator)
+__azurite_db_*.json
+
 # Terraform
 terraform/.terraform/
 terraform/*.tfstate

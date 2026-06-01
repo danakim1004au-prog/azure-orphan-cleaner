@@ -1,5 +1,5 @@
 ###############################################################################
-# Test fixtures for azure-orphan-cleaner.
+# Test fixtures for azure-resource-sweeper.
 #
 # Creates three deliberately ORPHANED resources so you can verify detection:
 #   1. An unattached managed disk
@@ -9,8 +9,8 @@
 # Usage:
 #   az login
 #   terraform init
-#   terraform apply        # creates the orphans
-#   az orphan scan --type all --estimate-cost
+#   terraform apply        # creates the stale resources
+#   az sweeper scan --type all --estimate-cost
 #   terraform destroy      # cleans everything up
 ###############################################################################
 
@@ -32,16 +32,16 @@ variable "location" {
   default = "eastus"
 }
 
-resource "azurerm_resource_group" "orphan_test" {
-  name     = "rg-orphan-cleaner-test"
+resource "azurerm_resource_group" "sweeper_test" {
+  name     = "rg-resource-sweeper-test"
   location = var.location
 }
 
 # 1. Unattached managed disk -------------------------------------------------
-resource "azurerm_managed_disk" "orphan_disk" {
-  name                 = "orphan-test-disk"
-  location             = azurerm_resource_group.orphan_test.location
-  resource_group_name  = azurerm_resource_group.orphan_test.name
+resource "azurerm_managed_disk" "sweeper_disk" {
+  name                 = "sweeper-test-disk"
+  location             = azurerm_resource_group.sweeper_test.location
+  resource_group_name  = azurerm_resource_group.sweeper_test.name
   storage_account_type = "Standard_LRS"
   create_option        = "Empty"
   disk_size_gb         = 32
@@ -49,10 +49,10 @@ resource "azurerm_managed_disk" "orphan_disk" {
 }
 
 # 2. Disconnected public IP --------------------------------------------------
-resource "azurerm_public_ip" "orphan_pip" {
-  name                = "orphan-test-pip"
-  location            = azurerm_resource_group.orphan_test.location
-  resource_group_name = azurerm_resource_group.orphan_test.name
+resource "azurerm_public_ip" "sweeper_pip" {
+  name                = "sweeper-test-pip"
+  location            = azurerm_resource_group.sweeper_test.location
+  resource_group_name = azurerm_resource_group.sweeper_test.name
   allocation_method   = "Static"
   sku                 = "Standard"
   # Not bound to any ipConfiguration -> isnull(properties.ipConfiguration)
@@ -60,23 +60,23 @@ resource "azurerm_public_ip" "orphan_pip" {
 
 # 3. NIC with no VM ----------------------------------------------------------
 resource "azurerm_virtual_network" "vnet" {
-  name                = "orphan-test-vnet"
-  location            = azurerm_resource_group.orphan_test.location
-  resource_group_name = azurerm_resource_group.orphan_test.name
+  name                = "sweeper-test-vnet"
+  location            = azurerm_resource_group.sweeper_test.location
+  resource_group_name = azurerm_resource_group.sweeper_test.name
   address_space       = ["10.0.0.0/16"]
 }
 
 resource "azurerm_subnet" "subnet" {
-  name                 = "orphan-test-subnet"
-  resource_group_name  = azurerm_resource_group.orphan_test.name
+  name                 = "sweeper-test-subnet"
+  resource_group_name  = azurerm_resource_group.sweeper_test.name
   virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = ["10.0.1.0/24"]
 }
 
-resource "azurerm_network_interface" "orphan_nic" {
-  name                = "orphan-test-nic"
-  location            = azurerm_resource_group.orphan_test.location
-  resource_group_name = azurerm_resource_group.orphan_test.name
+resource "azurerm_network_interface" "sweeper_nic" {
+  name                = "sweeper-test-nic"
+  location            = azurerm_resource_group.sweeper_test.location
+  resource_group_name = azurerm_resource_group.sweeper_test.name
 
   ip_configuration {
     name                          = "internal"
@@ -87,5 +87,5 @@ resource "azurerm_network_interface" "orphan_nic" {
 }
 
 output "next_step" {
-  value = "Now run:  az orphan scan --type all --estimate-cost"
+  value = "Now run:  az sweeper scan --type all --estimate-cost"
 }

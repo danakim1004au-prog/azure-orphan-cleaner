@@ -1,6 +1,6 @@
-# Contributing to azure-orphan-cleaner
+# Contributing to azure-resource-sweeper
 
-Thanks for your interest in improving `azure-orphan-cleaner`! This guide gets
+Thanks for your interest in improving `azure-resource-sweeper`! This guide gets
 you from a fresh clone to an open pull request.
 
 ## Development environment
@@ -10,8 +10,8 @@ tool.
 
 ```bash
 # 1. Clone your fork
-git clone https://github.com/<your-username>/azure-orphan-cleaner.git
-cd azure-orphan-cleaner
+git clone https://github.com/<your-username>/azure-resource-sweeper.git
+cd azure-resource-sweeper
 
 # 2. Create and activate a virtual environment
 python -m venv .venv
@@ -22,7 +22,7 @@ pip install azdev
 azdev setup --repo .             # or: azdev setup -c   (use installed CLI)
 
 # 4. Register this extension locally
-azdev extension add orphan_cleaner
+azdev extension add resource_sweeper
 
 # 5. Install the package in editable mode with dev extras
 pip install -e ".[dev]"
@@ -31,12 +31,12 @@ pip install -e ".[dev]"
 Verify it loaded:
 
 ```bash
-az orphan --help
+az sweeper --help
 ```
 
 ## Code style
 
-- **flake8** must pass: `flake8 azext_orphan_cleaner/`
+- **flake8** must pass: `flake8 azext_resource_sweeper/`
 - **Type hints are required** on every public function.
 - Every public function needs a docstring (Google or reStructuredText style).
 - Keep lines within 90 characters.
@@ -44,22 +44,22 @@ az orphan --help
 Run the full local check before pushing:
 
 ```bash
-flake8 azext_orphan_cleaner/
-pytest tests/unit/ --cov=azext_orphan_cleaner
+flake8 azext_resource_sweeper/
+pytest tests/unit/ --cov=azext_resource_sweeper
 ```
 
 ## Pull-request checklist
 
-- [ ] `flake8 azext_orphan_cleaner/` passes with no warnings.
+- [ ] `flake8 azext_resource_sweeper/` passes with no warnings.
 - [ ] `pytest tests/unit/` passes and coverage did not drop.
 - [ ] New behavior is covered by a unit test (Azure SDKs mocked).
 - [ ] Public functions have type hints and docstrings.
 - [ ] `CHANGELOG.md` has an entry under "Unreleased".
 - [ ] PR description explains the *why*, not just the *what*.
 
-## Adding a new orphan type (step by step)
+## Adding a new resource type (step by step)
 
-Say you want to detect **orphaned snapshots**:
+Say you want to detect **unused snapshots**:
 
 1. **Add a KQL query** in `custom.py` → `_KQL_QUERIES` under a new key, e.g.
    `"snapshot"`. Project at least `id, name, resourceGroup, location,
@@ -85,4 +85,4 @@ Please include:
 - **Logs**: re-run with `--debug` and paste the relevant excerpt.
 
 Open issues at:
-<https://github.com/danakim1004au-prog/azure-orphan-cleaner/issues>
+<https://github.com/danakim1004au-prog/azure-resource-sweeper/issues>

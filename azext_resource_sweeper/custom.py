@@ -2,9 +2,9 @@
 # Copyright (c) Dana Kim. All rights reserved.
 # Licensed under the MIT License.
 # --------------------------------------------------------------------------
-"""Core detection and cleanup logic for orphaned Azure resources.
+"""Core detection and cleanup logic for stale and unused Azure resources.
 
-This module talks to the Azure Resource Graph to *detect* orphaned resources
+This module talks to the Azure Resource Graph to *detect* stale and unused resources
 and to the per-service management SDKs (compute / network) to *delete* them.
 Authentication is handled by :class:`azure.identity.DefaultAzureCredential`,
 which transparently picks up the credentials already used by ``az login``.
@@ -76,7 +76,7 @@ _VALID_TYPES = ("disk", "nic", "publicip", "appserviceplan", "all")
 def _get_credential():
     """Return a :class:`DefaultAzureCredential`.
 
-    Imported lazily so that ``az orphan --help`` does not pay the import cost.
+    Imported lazily so that ``az sweeper --help`` does not pay the import cost.
     """
     from azure.identity import DefaultAzureCredential
 
@@ -128,7 +128,7 @@ def _run_graph_query(query: str, subscriptions: List[str]) -> List[Dict[str, Any
 
 
 def _estimate_cost(resource_type: str, row: Dict[str, Any]) -> float:
-    """Return an estimated monthly USD cost for a single orphaned resource."""
+    """Return an estimated monthly USD cost for a single stale or unused resource."""
     base = _COST_TABLE.get(resource_type, 0.0)
     if resource_type == "disk":
         return round(base * float(row.get("diskSizeGb") or 0), 2)
@@ -150,14 +150,14 @@ def _types_to_scan(resource_type: str) -> List[str]:
 # --------------------------------------------------------------------------- #
 # Public commands
 # --------------------------------------------------------------------------- #
-def scan_orphans(
+def scan_resources(
     cmd,
     resource_group: Optional[str] = None,
     subscription_id: Optional[str] = None,
     resource_type: str = "all",
     estimate_cost: bool = False,
 ) -> List[Dict[str, Any]]:
-    """Detect orphaned resources via Azure Resource Graph.
+    """Detect stale and unused resources via Azure Resource Graph.
 
     Args:
         cmd: The Azure CLI command context (injected by the CLI framework).
@@ -171,7 +171,7 @@ def scan_orphans(
             ``estimatedMonthlyCost`` field (USD).
 
     Returns:
-        A list of dictionaries, one per orphaned resource, each containing at
+        A list of dictionaries, one per stale or unused resource, each containing at
         least ``id``, ``name``, ``resourceGroup``, ``location`` and ``type``.
     """
     # Validate --type first so a bad value fails fast and clearly, before we
@@ -192,11 +192,11 @@ def scan_orphans(
                 row["estimatedMonthlyCost"] = _estimate_cost(rtype, row)
             results.append(row)
 
-    logger.info("Found %d orphaned resource(s)", len(results))
+    logger.info("Found %d stale or unused resource(s)", len(results))
     return results
 
 
-def clean_orphans(
+def clean_resources(
     cmd,
     resource_group: Optional[str] = None,
     subscription_id: Optional[str] = None,
@@ -204,14 +204,14 @@ def clean_orphans(
     dry_run: bool = True,
     yes: bool = False,
 ) -> List[Dict[str, Any]]:
-    """Delete orphaned resources discovered by :func:`scan_orphans`.
+    """Delete stale and unused resources discovered by :func:`scan_resources`.
 
     Args:
         cmd: The Azure CLI command context.
         resource_group: Limit deletion to a single resource group.
         subscription_id: Subscription to operate on. Defaults to the active
             CLI subscription.
-        resource_type: Which orphan type(s) to delete.
+        resource_type: Which resource type(s) to delete.
         dry_run: When ``True`` (the default) nothing is deleted; the function
             only reports what *would* be removed. This is the safety default.
         yes: Skip the interactive confirmation prompt. Ignored when
@@ -221,7 +221,7 @@ def clean_orphans(
         A list of result dictionaries, each with ``id``, ``name``, ``type``
         and a ``status`` field (``would-delete`` / ``deleted`` / ``failed``).
     """
-    targets = scan_orphans(
+    targets = scan_resources(
         cmd,
         resource_group=resource_group,
         subscription_id=subscription_id,
@@ -229,7 +229,7 @@ def clean_orphans(
     )
 
     if not targets:
-        logger.warning("No orphaned resources found. Nothing to clean.")
+        logger.warning("No stale and unused resources found. Nothing to clean.")
         return []
 
     if dry_run:

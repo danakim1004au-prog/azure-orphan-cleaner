@@ -1,18 +1,18 @@
-# azure-orphan-cleaner
+# azure-resource-sweeper
 
-[![CI](https://github.com/danakim1004au-prog/azure-orphan-cleaner/actions/workflows/ci.yml/badge.svg)](https://github.com/danakim1004au-prog/azure-orphan-cleaner/actions/workflows/ci.yml)
-[![PyPI version](https://img.shields.io/pypi/v/azure-orphan-cleaner.svg)](https://pypi.org/project/azure-orphan-cleaner/)
-[![Python versions](https://img.shields.io/pypi/pyversions/azure-orphan-cleaner.svg)](https://pypi.org/project/azure-orphan-cleaner/)
+[![CI](https://github.com/danakim1004au-prog/azure-resource-sweeper/actions/workflows/ci.yml/badge.svg)](https://github.com/danakim1004au-prog/azure-resource-sweeper/actions/workflows/ci.yml)
+[![PyPI version](https://img.shields.io/pypi/v/azure-resource-sweeper.svg)](https://pypi.org/project/azure-resource-sweeper/)
+[![Python versions](https://img.shields.io/pypi/pyversions/azure-resource-sweeper.svg)](https://pypi.org/project/azure-resource-sweeper/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-An **Azure CLI extension** that detects and safely cleans up *orphaned
+An **Azure CLI extension** that detects and safely cleans up *stale and unused
 resources* — unattached disks, dangling NICs, unused public IPs and empty
 App Service plans that quietly keep costing money.
 
 ## Why?
 
 Orphaned resources are easy to create and easy to forget. They never show up
-on a dashboard you look at, but they show up on the bill. `azure-orphan-cleaner`
+on a dashboard you look at, but they show up on the bill. `azure-resource-sweeper`
 uses **Azure Resource Graph** to find them in seconds and removes them with a
 dry-run-first safety model.
 
@@ -20,32 +20,32 @@ dry-run-first safety model.
 
 ```bash
 # As an Azure CLI extension (recommended)
-az extension add --source azure_orphan_cleaner-0.1.0-py3-none-any.whl
+az extension add --source azure_resource_sweeper-0.1.0-py3-none-any.whl
 
 # Or install the package directly from PyPI
-pip install azure-orphan-cleaner
+pip install azure-resource-sweeper
 ```
 
 ## Quick start
 
 ```bash
-# 1. Find every orphaned resource in the active subscription
-az orphan scan
+# 1. Find every stale or unused resource in the active subscription
+az sweeper scan
 
 # 2. Look for unattached disks and show what they cost each month
-az orphan scan --type disk --estimate-cost
+az sweeper scan --type disk --estimate-cost
 
 # 3. Scan one resource group and get JSON for scripting
-az orphan scan -g my-rg --output json
+az sweeper scan -g my-rg --output json
 
 # 4. Preview a cleanup (nothing is deleted — dry-run is the default)
-az orphan clean --type publicip
+az sweeper clean --type publicip
 
-# 5. Actually delete the orphans, skipping the prompt
-az orphan clean --type all --dry-run false --yes
+# 5. Actually delete the stale resources, skipping the prompt
+az sweeper clean --type all --dry-run false --yes
 ```
 
-## Supported orphan types
+## Supported resource types
 
 | Type             | `--type` value   | Detection condition                       | Typical monthly cost |
 |------------------|------------------|-------------------------------------------|----------------------|
@@ -57,7 +57,7 @@ az orphan clean --type all --dry-run false --yes
 
 ## Command reference
 
-### `az orphan scan`
+### `az sweeper scan`
 
 | Option              | Default | Description                                          |
 |---------------------|---------|------------------------------------------------------|
@@ -66,13 +66,13 @@ az orphan clean --type all --dry-run false --yes
 | `--type`            | `all`   | `disk` / `nic` / `publicip` / `appserviceplan` / `all` |
 | `--estimate-cost`   | off     | Add an `estimatedMonthlyCost` field to each row.     |
 
-### `az orphan clean`
+### `az sweeper clean`
 
 | Option              | Default | Description                                          |
 |---------------------|---------|------------------------------------------------------|
 | `--resource-group`, `-g` | all RGs | Limit deletion to one resource group.           |
 | `--subscription-id` | active  | Subscription to operate on.                          |
-| `--type`            | `all`   | Type of orphan to delete.                            |
+| `--type`            | `all`   | Type of stale resource to delete.                            |
 | `--dry-run`         | `true`  | Preview only. Pass `--dry-run false` to delete.      |
 | `--yes`, `-y`       | off     | Skip the confirmation prompt.                        |
 
@@ -86,7 +86,7 @@ identity — no extra configuration needed.
 ## Contributing
 
 Contributions are very welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for how
-to set up a local dev environment and add a new orphan detection type.
+to set up a local dev environment and add a new resource detection type.
 
 ## License
 

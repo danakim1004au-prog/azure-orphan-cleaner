@@ -41,14 +41,14 @@ DEV_DEPENDENCIES = [
 ]
 
 setup(
-    name="azure-orphan-cleaner",
+    name="azure-resource-sweeper",
     version=VERSION,
-    description="Azure CLI extension to detect and safely clean up orphaned resources.",
+    description="Azure CLI extension to detect and safely clean up stale and unused resources.",
     long_description=LONG_DESCRIPTION,
     long_description_content_type="text/markdown",
     author="Dana Kim",
     author_email="danakim1004.au@gmail.com",
-    url="https://github.com/danakim1004au-prog/azure-orphan-cleaner",
+    url="https://github.com/danakim1004au-prog/azure-resource-sweeper",
     license="MIT",
     classifiers=CLASSIFIERS,
     python_requires=">=3.8",
@@ -58,9 +58,9 @@ setup(
     include_package_data=True,
     # Azure CLI discovers extensions through this entry-point group.
     entry_points={
-        "azext.orphan_cleaner": [
-            "OrphanCleanerCommandsLoader = "
-            "azext_orphan_cleaner:OrphanCleanerCommandsLoader",
+        "azext.resource_sweeper": [
+            "ResourceSweeperCommandsLoader = "
+            "azext_resource_sweeper:ResourceSweeperCommandsLoader",
         ],
     },
 )

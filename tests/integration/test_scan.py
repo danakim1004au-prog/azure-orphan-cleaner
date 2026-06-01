@@ -13,7 +13,7 @@ import os
 
 import pytest
 
-from azext_orphan_cleaner import custom
+from azext_resource_sweeper import custom
 
 SUBSCRIPTION_ID = os.environ.get("AZURE_SUBSCRIPTION_ID")
 
@@ -35,7 +35,7 @@ class _RealCmd:
 def test_scan_against_live_subscription():
     """A live scan returns a list and every row carries the expected keys."""
     cmd = _RealCmd()
-    results = custom.scan_orphans(
+    results = custom.scan_resources(
         cmd,
         subscription_id=SUBSCRIPTION_ID,
         resource_type="all",
@@ -51,7 +51,7 @@ def test_scan_against_live_subscription():
 def test_clean_dry_run_is_non_destructive():
     """clean() in dry-run mode must only ever report 'would-delete'."""
     cmd = _RealCmd()
-    results = custom.clean_orphans(
+    results = custom.clean_resources(
         cmd,
         subscription_id=SUBSCRIPTION_ID,
         resource_type="all",
