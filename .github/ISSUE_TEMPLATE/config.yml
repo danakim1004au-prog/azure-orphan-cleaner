@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Azure CLI Documentation
+    url: https://docs.microsoft.com/en-us/cli/azure/
+    about: Official Azure CLI reference
+  - name: Azure Resource Graph Explorer
+    url: https://portal.azure.com/#view/HubsExtension/ArgQueryBlade
+    about: Test KQL queries against your subscription

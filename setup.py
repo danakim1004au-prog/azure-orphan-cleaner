@@ -13,7 +13,7 @@ CLASSIFIERS = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
     "Intended Audience :: System Administrators",
-    "License :: OSI Approved :: MIT License",
+    "License :: OSI Approved :: Apache Software License",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.8",
@@ -49,7 +49,7 @@ setup(
     author="Dana Kim",
     author_email="danakim1004.au@gmail.com",
     url="https://github.com/danakim1004au-prog/azure-resource-sweeper",
-    license="MIT",
+    license="Apache-2.0",
     classifiers=CLASSIFIERS,
     python_requires=">=3.8",
     packages=find_packages(exclude=["tests", "tests.*"]),
@@ -57,10 +57,11 @@ setup(
     extras_require={"dev": DEV_DEPENDENCIES},
     include_package_data=True,
     # Azure CLI discovers extensions through this entry-point group.
+    # The group name MUST be "azure.cli.extensions" for azdev and the CLI to
+    # recognize the package as a first-class extension.
     entry_points={
-        "azext.resource_sweeper": [
-            "ResourceSweeperCommandsLoader = "
-            "azext_resource_sweeper:ResourceSweeperCommandsLoader",
+        "azure.cli.extensions": [
+            "resource-sweeper = azext_resource_sweeper",
         ],
     },
 )
