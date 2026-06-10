@@ -6,6 +6,13 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-06-10
+
+### Added
+- `azext_metadata.json` (`azext.minCliCoreVersion`, `azext.isPreview`) and
+  `MANIFEST.in` so the package ships the metadata required by the Azure CLI
+  extensions index.
+
 ## [0.2.0] - 2026-06-10
 
 ### Fixed
@@ -30,6 +37,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - `azure.cli.extensions` entry-point for full azdev compatibility.
 - Apache 2.0 license.
 
-[Unreleased]: https://github.com/danakim1004au-prog/azure-resource-sweeper/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/danakim1004au-prog/azure-resource-sweeper/compare/v0.2.1...HEAD
+[0.2.1]: https://github.com/danakim1004au-prog/azure-resource-sweeper/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/danakim1004au-prog/azure-resource-sweeper/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/danakim1004au-prog/azure-resource-sweeper/releases/tag/v0.1.0

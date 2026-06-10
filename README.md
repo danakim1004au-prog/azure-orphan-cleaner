@@ -31,7 +31,7 @@ az extension add --name azure-resource-sweeper
 # Or from a local wheel (for development)
 pip install build
 python -m build
-az extension add --source dist/azure_resource_sweeper-0.1.0-py3-none-any.whl
+az extension add --source dist/azure_resource_sweeper-*-py3-none-any.whl
 ```
 
 ### For local development with azdev
