@@ -6,6 +6,12 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-06-10
+
+### Fixed
+- Version bump to align `setup.py` / `__init__.py` with the `v0.2.0` release tag
+  so the PyPI release pipeline publishes the correct package version.
+
 ## [0.1.0] - 2026-06-01
 
 ### Added
@@ -24,5 +30,6 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - `azure.cli.extensions` entry-point for full azdev compatibility.
 - Apache 2.0 license.
 
-[Unreleased]: https://github.com/danakim1004au-prog/azure-resource-sweeper/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/danakim1004au-prog/azure-resource-sweeper/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/danakim1004au-prog/azure-resource-sweeper/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/danakim1004au-prog/azure-resource-sweeper/releases/tag/v0.1.0
